@@ -8,10 +8,11 @@
 /*canonical functions*/
 DiamondTrap::DiamondTrap(std::string name)
 {
+/*FragTrap values are replaced by ScavTrap's when we inherit ScavTrap second, need to add new solution for this other than manually overwriting values for attack_damage and hitpoints*/
     _name = name;
-    this->_attack_damage = get_ad();
+    this->_attack_damage = 30;
     this->_energy = this->ScavTrap::_energy;
-    this->_hitpoints = this->FragTrap::_hitpoints;
+    this->_hitpoints = 100;
     ClapTrap::_name = _name + "_clap_name";
     std::cout << "DIAMONDTRAP: " << _name << " is born" << std::endl;
     return ;
