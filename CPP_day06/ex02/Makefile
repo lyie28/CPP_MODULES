@@ -1,0 +1,42 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: user42 <marvin@42.fr>                      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/10/25 10:54:51 by user42            #+#    #+#              #
+#    Updated: 2021/12/18 23:55:02 by user42           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+SRCS = main.cpp Base.cpp
+OBJS = $(addprefix ${OBJDIR}/,${SRCS:.cpp=.o})
+NAME = dynamic
+DEPF = -MMD -MP
+DEP = ${OBJS:.o=.d}
+OBJDIR = helper_files
+INCLUDES = Lit.hpp
+CC = c++
+RM = rm -f
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
+all: ${NAME}
+
+$(NAME)	: ${OBJS}
+	${CC} -I${INCLUDES} ${CFLAGS} ${DEPF} ${OBJS} -o $@
+
+${OBJDIR}/%.o:%.cpp
+	@mkdir -p ${@D}
+	${CC} ${CFLAGS} ${DEPF} -c $< -o $@
+
+clean:
+	rm -rf ${OBJDIR}
+
+fclean: clean
+	${RM} ${NAME}
+
+re: fclean all
+
+.PHONY: all clean fclean re
+
+-include ${DEP}
